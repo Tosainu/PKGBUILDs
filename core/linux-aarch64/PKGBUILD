@@ -52,7 +52,7 @@ prepare() {
 
   cat "${srcdir}/config" > ./.config
 
-  make menuconfig
+  #make menuconfig
 }
 
 build() {
