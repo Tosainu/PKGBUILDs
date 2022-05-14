@@ -1,10 +1,10 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 5.17.5 Kernel Configuration
+# Linux/arm64 5.17.7 Kernel Configuration
 #
-CONFIG_CC_VERSION_TEXT="aarch64-linux-gnu-gcc (GCC) 11.3.0"
+CONFIG_CC_VERSION_TEXT="gcc (GCC) 11.2.0"
 CONFIG_CC_IS_GCC=y
-CONFIG_GCC_VERSION=110300
+CONFIG_GCC_VERSION=110200
 CONFIG_CLANG_VERSION=0
 CONFIG_AS_IS_GNU=y
 CONFIG_AS_VERSION=23800
