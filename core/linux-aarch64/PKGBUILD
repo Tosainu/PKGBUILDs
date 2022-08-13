@@ -3,11 +3,11 @@
 
 buildarch=8
 
-pkgbase=linux-aarch64
-_srcname=linux-5.18
+pkgbase=linux-nanopi-r4s
+pkgver=5.19.1
+_srcname=linux-${pkgver%.0}
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgver=5.18.1
 pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
@@ -15,9 +15,9 @@ license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' 'vboot-utils' 'dtc')
 options=('!strip')
 source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
-        "http://www.kernel.org/pub/linux/kernel/v5.x/patch-${pkgver}.xz"
         '0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch'
         '0002-arm64-dts-rockchip-disable-pwm0-on-rk3399-firefly.patch'
+        '0099-rfc-mmc-core-set-initial-signal-voltage-on-power-off.patch'
         'config'
         'generate_chromebook_its.sh'
         'kernel.keyblock'
@@ -25,11 +25,11 @@ source=("http://www.kernel.org/pub/linux/kernel/v5.x/${_srcname}.tar.xz"
         'linux.preset'
         '60-linux.hook'
         '90-linux.hook')
-md5sums=('58e80452e2d8e1993cd7ec95e697ab5a'
-         '4d3c0c51927b2bb0de4caa5d64a6dd4c'
+md5sums=('9d0eec53c479f141f30ae9845b115889'
          '91d1298599aa31b10f1f3954a450b6c3'
          '3b781286c0b97cec552ad6c8a7a019dd'
-         '62514cac04a488f99705eecb1e38d86c'
+         '769689cc9f008fc216a49057504db5d6'
+         '118a0b532a6a6abe9d5203e268acccca'
          '7c97cf141750ad810235b1ad06eb9f75'
          '61c5ff73c136ed07a7aadbf58db3d96a'
          '584777ae88bce2c5659960151b64c7d8'
@@ -45,14 +45,14 @@ prepare() {
   echo "-$pkgrel" > localversion.10-pkgrel
   echo "${pkgbase#linux}" > localversion.20-pkgname
 
-  # add upstream patch
-  git apply --whitespace=nowarn ../patch-${pkgver}
-
   # ALARM patches
   git apply ../0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch
   git apply ../0002-arm64-dts-rockchip-disable-pwm0-on-rk3399-firefly.patch
+  git apply ../0099-rfc-mmc-core-set-initial-signal-voltage-on-power-off.patch
 
   cat "${srcdir}/config" > ./.config
+
+  #make menuconfig
 }
 
 build() {
@@ -229,7 +229,7 @@ _package-chromebook() {
   cp vmlinux.kpart "${pkgdir}/boot"
 }
 
-pkgname=("${pkgbase}" "${pkgbase}-headers" "${pkgbase}-chromebook")
+pkgname=("${pkgbase}" "${pkgbase}-headers")
 for _p in ${pkgname[@]}; do
   eval "package_${_p}() {
     _package${_p#${pkgbase}}
