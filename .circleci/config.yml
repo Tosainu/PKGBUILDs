@@ -1,0 +1,41 @@
+version: 2.1
+
+jobs:
+  build:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: arm.large
+    steps:
+      - run: docker version
+      - run: docker info
+
+      - checkout
+
+      - run:
+          name: Prepare a container image
+          command: |
+            docker build -t builder - \<<EOS
+            FROM ghcr.io/tosainu/alarm-makepkg:latest
+            USER root
+            RUN usermod -u $UID alarm
+            USER alarm
+            EOS
+
+      - run:
+          name: Build packages
+          command: docker run --rm -v "$PWD:/build" -w /build -t builder ./build.sh
+
+      - run:
+          name: Prepare for saving artifacts
+          command: |
+            mkdir -p ~/artifacts
+            find . -name '*.pkg.tar.*' -type f -exec cp {} ~/artifacts \;
+
+      - store_artifacts:
+          path: ~/artifacts
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build
