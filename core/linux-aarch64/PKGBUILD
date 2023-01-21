@@ -8,16 +8,15 @@ pkgver=6.1.7
 _srcname=linux-${pkgver%.0}
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgrel=1
+pkgrel=2
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
-makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git' 'uboot-tools' 'vboot-utils' 'dtc')
+makedepends=('bc' 'docbook-xsl' 'inetutils' 'kmod' 'patch' 'xmlto')
 options=('!strip')
 source=("http://www.kernel.org/pub/linux/kernel/v6.x/${_srcname}.tar.xz"
-        '0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch'
-        '0002-arm64-dts-rockchip-disable-pwm0-on-rk3399-firefly.patch'
-        '0099-rfc-mmc-core-set-initial-signal-voltage-on-power-off.patch'
+        '0001-rfc-mmc-core-set-initial-signal-voltage-on-power-off.patch'
+        '0002-wifi-mac80211-fix-initialization-of-rx-link-and-rx-link_sta.patch'
         'config'
         'generate_chromebook_its.sh'
         'kernel.keyblock'
@@ -26,9 +25,8 @@ source=("http://www.kernel.org/pub/linux/kernel/v6.x/${_srcname}.tar.xz"
         '60-linux.hook'
         '90-linux.hook')
 md5sums=('657681c0610cb314b2be1256a88b2e54'
-         'e0514a3e8f7383c1304faeff0121dfb5'
-         '965c9f68072084cdbf1e083779d2ef0e'
          '769689cc9f008fc216a49057504db5d6'
+         '5d57cc6aa2571384f8989d2e5a86713a'
          'e9093f57683c36b40ae2a5947e934981'
          '7c97cf141750ad810235b1ad06eb9f75'
          '61c5ff73c136ed07a7aadbf58db3d96a'
@@ -45,10 +43,8 @@ prepare() {
   echo "-$pkgrel" > localversion.10-pkgrel
   echo "${pkgbase#linux}" > localversion.20-pkgname
 
-  # ALARM patches
-  git apply ../0001-net-smsc95xx-Allow-mac-address-to-be-set-as-a-parame.patch
-  git apply ../0002-arm64-dts-rockchip-disable-pwm0-on-rk3399-firefly.patch
-  git apply ../0099-rfc-mmc-core-set-initial-signal-voltage-on-power-off.patch
+  patch -Np1 < ../0001-rfc-mmc-core-set-initial-signal-voltage-on-power-off.patch
+  patch -Np1 < ../0002-wifi-mac80211-fix-initialization-of-rx-link-and-rx-link_sta.patch
 
   cat "${srcdir}/config" > ./.config
 }
