@@ -4,7 +4,7 @@
 buildarch=8
 
 pkgbase=linux-nanopi-r4s
-pkgver=6.2.5
+pkgver=6.2.7
 _srcname=linux-${pkgver%.0}
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
@@ -23,9 +23,9 @@ source=("http://www.kernel.org/pub/linux/kernel/v6.x/${_srcname}.tar.xz"
         'linux.preset'
         '60-linux.hook'
         '90-linux.hook')
-md5sums=('bba67a4a41b5fa19420ed5008f33a699'
+md5sums=('dcbf074fb45123318b3b4274f572b4ff'
          '769689cc9f008fc216a49057504db5d6'
-         '79e82d6dbc22d5fe457584da932b982d'
+         'f3c00e69966372fb5ea8089e9a0c874e'
          '7c97cf141750ad810235b1ad06eb9f75'
          '61c5ff73c136ed07a7aadbf58db3d96a'
          '584777ae88bce2c5659960151b64c7d8'
