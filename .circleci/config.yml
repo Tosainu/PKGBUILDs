@@ -1,29 +1,39 @@
 version: 2.1
 
+commands:
+  run_makepkg:
+    parameters:
+      path:
+        type: string
+    steps:
+      - run:
+          name: 'Build "<< parameters.path >>"'
+          command: makepkg -s --noconfirm --noprogressbar
+          working_directory: << parameters.path >>
+
 jobs:
   build:
-    machine:
-      image: ubuntu-2204:current
+    docker:
+      - image: ghcr.io/tosainu/alarm-makepkg:latest
     resource_class: arm.large
     steps:
-      - run: docker version
-      - run: docker info
-
       - checkout
 
       - run:
-          name: Prepare a container image
+          name: Setup Pacman
           command: |
-            docker build -t builder - \<<EOS
-            FROM ghcr.io/tosainu/alarm-makepkg:latest
-            USER root
-            RUN usermod -u $UID alarm
-            USER alarm
-            EOS
+            sudo pacman-key --init
+            sudo pacman-key --populate archlinuxarm
+            sudo sed -i 's/^#\?\(Color\)/\1/' /etc/pacman.conf
+            sudo sed -i 's/^#\?\(MAKEFLAGS=\).*$/\1"-j6"/' /etc/makepkg.conf
 
       - run:
-          name: Build packages
-          command: docker run --rm -v "$PWD:/build" -w /build -t builder ./build.sh
+          name: Update the System
+          command: |
+            sudo pacman -Syyu --noconfirm --noprogressbar
+
+      - run_makepkg:
+          path: core/linux-aarch64
 
       - run:
           name: Prepare for saving artifacts
