@@ -4,7 +4,7 @@
 buildarch=8
 
 pkgbase=linux-nanopi-r4s
-pkgver=6.4.7
+pkgver=6.4.13
 _srcname=linux-${pkgver%.0}
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
@@ -17,9 +17,9 @@ options=('!strip')
 source=("http://www.kernel.org/pub/linux/kernel/v6.x/${_srcname}.tar.xz"
         '0001-rfc-mmc-core-set-initial-signal-voltage-on-power-off.patch'
         'config')
-md5sums=('f3d802a16823550866e7dcafb1350bb5'
+md5sums=('1ce0b1d43fb27f7171a49a9e539d291f'
          '769689cc9f008fc216a49057504db5d6'
-         '22dfd8575293fb5bb3f1a5c84e5a0a0d')
+         '768b3a70c9db883180a4109644191207')
 
 _make() {
   test -s version
