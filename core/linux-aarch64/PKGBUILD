@@ -55,7 +55,7 @@ prepare() {
 
 build() {
   cd $_srcname
-  _make Image.zst modules
+  _make Image Image.gz modules
   # Generate device tree blobs with symbols to support applying device tree overlays in U-Boot
   _make ${MAKEFLAGS} DTC_FLAGS="-@" dtbs
 }
