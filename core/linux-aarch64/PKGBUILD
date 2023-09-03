@@ -8,18 +8,20 @@ pkgver=6.5.1
 _srcname=linux-${pkgver%.0}
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgrel=1
+pkgrel=2
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
 makedepends=('bc' 'docbook-xsl' 'inetutils' 'kmod' 'patch' 'xmlto')
 options=('!strip')
 source=("http://www.kernel.org/pub/linux/kernel/v6.x/${_srcname}.tar.xz"
-        '0001-rfc-mmc-core-set-initial-signal-voltage-on-power-off.patch'
+        '0000-rfc-mmc-core-set-initial-signal-voltage-on-power-off.patch'
+        '0001-usb-dwc3-dont-reset-device-side-if-dwc3-was-configured-as-host-only.reverse.patch'
         'config')
 md5sums=('228479f37b3face05b53bd7f8906abe0'
          '769689cc9f008fc216a49057504db5d6'
-         '423a03235088c93f9dc3641854971dfe')
+         '2b6e022e064e204dc6cd28d3b824f76b'
+         '236b8cef3317d3b0ca746dc0017e7150')
 
 _make() {
   test -s version
@@ -40,9 +42,13 @@ prepare() {
   for src in "${source[@]}"; do
     src="${src%%::*}"
     src="${src##*/}"
-    [[ $src = *.patch ]] || continue
-    echo "Applying patch $src..."
-    patch -Np1 < "../$src"
+    if [[ $src = *.reverse.patch ]]; then
+      echo "Reverting patch $src..."
+      patch -Rp1 < "../$src"
+    elif [[ $src = *.patch ]]; then
+      echo "Applying patch $src..."
+      patch -Np1 < "../$src"
+    fi
   done
 
   echo "Setting config..."
