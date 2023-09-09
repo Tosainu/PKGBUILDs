@@ -8,7 +8,7 @@ pkgver=6.5.2
 _srcname=linux-${pkgver%.0}
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgrel=1
+pkgrel=2
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -21,7 +21,7 @@ source=("http://www.kernel.org/pub/linux/kernel/v6.x/${_srcname}.tar.xz"
 md5sums=('b27f15af00742f2c49a5247b73247d3b'
          '769689cc9f008fc216a49057504db5d6'
          '2b6e022e064e204dc6cd28d3b824f76b'
-         'd1c4c956522714f801a49a597eed0f00')
+         'dc7bbf7a428b03856c69ffc5ba3068d9')
 
 _make() {
   test -s version
