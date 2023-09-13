@@ -4,11 +4,11 @@
 buildarch=8
 
 pkgbase=linux-nanopi-r4s
-pkgver=6.5.2
+pkgver=6.5.3
 _srcname=linux-${pkgver%.0}
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
-pkgrel=3
+pkgrel=1
 arch=('aarch64')
 url="http://www.kernel.org/"
 license=('GPL2')
@@ -16,12 +16,12 @@ makedepends=('bc' 'docbook-xsl' 'inetutils' 'kmod' 'patch' 'xmlto')
 options=('!strip')
 source=("http://www.kernel.org/pub/linux/kernel/v6.x/${_srcname}.tar.xz"
         '0000-rfc-mmc-core-set-initial-signal-voltage-on-power-off.patch'
-        '0001-usb-dwc3-dont-reset-device-side-if-dwc3-was-configured-as-host-only.reverse.patch'
+        '0001-usb-dwc3-Soft-reset-phy-on-probe-for-host.patch'
         'config')
-md5sums=('b27f15af00742f2c49a5247b73247d3b'
+md5sums=('c54b2cd13ba845e2f5a667ce712e92b9'
          '769689cc9f008fc216a49057504db5d6'
-         '2b6e022e064e204dc6cd28d3b824f76b'
-         '853d4e8863e4e53d003c624a976feaf3')
+         '5929b53bb45f172b4fa550f7cca3eb3c'
+         'd282b8fc7a0d81f42ce6f48222196f98')
 
 _make() {
   test -s version
