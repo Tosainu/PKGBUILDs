@@ -4,7 +4,7 @@
 buildarch=8
 
 pkgbase=linux-nanopi-r4s
-pkgver=6.5.3
+pkgver=6.5.4
 _srcname=linux-${pkgver%.0}
 _kernelname=${pkgbase#linux}
 _desc="AArch64 multi-platform"
@@ -18,10 +18,10 @@ source=("http://www.kernel.org/pub/linux/kernel/v6.x/${_srcname}.tar.xz"
         '0000-rfc-mmc-core-set-initial-signal-voltage-on-power-off.patch'
         '0001-usb-dwc3-Soft-reset-phy-on-probe-for-host.patch'
         'config')
-md5sums=('c54b2cd13ba845e2f5a667ce712e92b9'
+md5sums=('4ec9a678c2ee4d599a87385d707aca53'
          '769689cc9f008fc216a49057504db5d6'
          '5929b53bb45f172b4fa550f7cca3eb3c'
-         'd282b8fc7a0d81f42ce6f48222196f98')
+         'd0d29bac0f871c6cb9937d3ff9f44e5c')
 
 _make() {
   test -s version
