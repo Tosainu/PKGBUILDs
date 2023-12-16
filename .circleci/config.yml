@@ -23,7 +23,9 @@ jobs:
           name: Setup Pacman
           command: |
             sudo pacman-key --init
+            sudo pacman-key --populate archlinux
             sudo pacman-key --populate archlinuxarm
+            sudo pacman-key --lsign-key 68B3537F39A313B3E574D06777193F152BDBE6A6 # Arch Linux ARM Build System <builder@archlinuxarm.org>
             sudo sed -i 's/^#\?\(Color\)/\1/' /etc/pacman.conf
             sudo sed -i 's/^#\?\(MAKEFLAGS=\).*$/\1"-j6"/' /etc/makepkg.conf
 
