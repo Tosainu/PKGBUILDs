@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 6.6.7 Kernel Configuration
+# Linux/arm64 6.6.10 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="gcc (GCC) 12.1.0"
 CONFIG_CC_IS_GCC=y
@@ -274,6 +274,7 @@ CONFIG_CRASH_CORE=y
 CONFIG_KEXEC_CORE=y
 CONFIG_KEXEC_FILE=y
 # CONFIG_KEXEC_SIG is not set
+# CONFIG_CRASH_DUMP is not set
 # end of Kexec and crash features
 # end of General setup
 
@@ -2237,7 +2238,6 @@ CONFIG_STMMAC_PLATFORM=m
 CONFIG_DWMAC_GENERIC=m
 CONFIG_DWMAC_ROCKCHIP=m
 # CONFIG_DWMAC_INTEL_PLAT is not set
-# CONFIG_DWMAC_LOONGSON is not set
 # CONFIG_STMMAC_PCI is not set
 # CONFIG_NET_VENDOR_SUN is not set
 # CONFIG_NET_VENDOR_SYNOPSYS is not set
@@ -5115,8 +5115,6 @@ CONFIG_DEBUG_LIST=y
 # CONFIG_DEBUG_NOTIFIERS is not set
 # CONFIG_DEBUG_MAPLE_TREE is not set
 # end of Debug kernel data structures
-
-# CONFIG_DEBUG_CREDENTIALS is not set
 
 #
 # RCU Debugging
