@@ -1,0 +1,53 @@
+version: 2.1
+
+commands:
+  run_makepkg:
+    parameters:
+      path:
+        type: string
+    steps:
+      - run:
+          name: 'Build "<< parameters.path >>"'
+          command: makepkg -s --noconfirm --noprogressbar
+          working_directory: << parameters.path >>
+
+jobs:
+  build:
+    docker:
+      - image: ghcr.io/tosainu/alarm-makepkg:latest
+    resource_class: arm.large
+    steps:
+      - checkout
+
+      - run:
+          name: Setup Pacman
+          command: |
+            sudo pacman-key --init
+            sudo pacman-key --populate archlinux
+            sudo pacman-key --populate archlinuxarm
+            sudo pacman-key --lsign-key 68B3537F39A313B3E574D06777193F152BDBE6A6 # Arch Linux ARM Build System <builder@archlinuxarm.org>
+            sudo sed -i 's/^#\?\(Color\)/\1/' /etc/pacman.conf
+            sudo sed -i 's/^#\?\(MAKEFLAGS=\).*$/\1"-j6"/' /etc/makepkg.conf
+
+      - run:
+          name: Update the System
+          command: |
+            sudo pacman -Syyu --noconfirm --noprogressbar
+
+      - run_makepkg:
+          path: core/linux-aarch64
+
+      - run:
+          name: Prepare for saving artifacts
+          command: |
+            mkdir -p ~/artifacts
+            find . -name '*.pkg.tar.*' -type f -exec cp {} ~/artifacts \;
+
+      - store_artifacts:
+          path: ~/artifacts
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build
