@@ -14,7 +14,7 @@ commands:
 jobs:
   build:
     docker:
-      - image: ghcr.io/tosainu/alarm-makepkg:latest@sha256:09776c17120c08448f52621cdfdd5850824cb909741f5509ae1655f5fcfd6d80
+      - image: ghcr.io/tosainu/alarm-makepkg:latest
     resource_class: arm.large
     steps:
       - checkout
@@ -32,7 +32,7 @@ jobs:
       - run:
           name: Update the System
           command: |
-            sudo pacman -Syyu --noconfirm --noprogressbar --ignore fakeroot
+            sudo pacman -Syyu --noconfirm --noprogressbar
 
       - run_makepkg:
           path: core/linux-aarch64
