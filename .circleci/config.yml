@@ -34,6 +34,8 @@ jobs:
           command: |
             sudo pacman -Syyu --noconfirm --noprogressbar
 
+      - run: fakeroot sh -c 'echo nyan && sleep 100'
+
       - run_makepkg:
           path: core/linux-aarch64
 
