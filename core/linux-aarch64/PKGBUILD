@@ -1,6 +1,7 @@
 # / AArch64 multi-platform
 # Maintainer: Kevin Mihelich <kevin@archlinuxarm.org>
 # Maintainer: graysky <therealgraysky AT proton DOT me>
+# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 buildarch=8
 
@@ -8,7 +9,7 @@ pkgbase=linux-nanopi-r4s
 pkgver=6.11.0
 pkgrel=2
 pkgdesc='Linux'
-url="http://www.kernel.org/"
+url='http://www.kernel.org/'
 arch=(aarch64)
 license=(GPL-2.0-only)
 makedepends=(
@@ -29,12 +30,11 @@ _srcname=linux-${pkgver%.0}
 source=(
   https://cdn.kernel.org/pub/linux/kernel/v${pkgver%%.*}.x/${_srcname}.tar.{xz,sign}
   0000-rfc-mmc-core-set-initial-signal-voltage-on-power-off.patch
-  config
+  config  # the main kernel config file
 )
 validpgpkeys=(
   ABAF11C65A2970B130ABE3C479BE3E4300411886  # Linus Torvalds
   647F28654894E3BD457199BE38DBBDC86092693E  # Greg Kroah-Hartman
-  83BC8889351B5DEBBB68416EB8AC08600F108CDF  # Jan Alexander Steffens (heftig)
 )
 sha256sums=('55d2c6c025ebc27810c748d66325dd5bc601e8d32f8581d9e77673529bdacb2e'
             'SKIP'
