@@ -6,7 +6,7 @@ buildarch=8
 
 pkgbase=linux-nanopi-r4s
 pkgver=6.11.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Linux'
 url="http://www.kernel.org/"
 arch=(aarch64)
@@ -39,9 +39,9 @@ validpgpkeys=(
 sha256sums=('55d2c6c025ebc27810c748d66325dd5bc601e8d32f8581d9e77673529bdacb2e'
             'SKIP'
             '714e6d38480c8cdb1515fda600769159b170eab95c21e7335d7f82c4836bef3e'
-            '0bf733adc48e5fff2c9b02a6fb321ff88edbb6f83e9e12d5997392fa23584cdc')
+            '809abb49d707f7fb47ddcd8b7b9ba259f715967840065ab3516831f59fcd1610')
 
-export KBUILD_BUILD_HOST=myon
+export KBUILD_BUILD_HOST=myon.info
 export KBUILD_BUILD_USER=$pkgbase
 export KBUILD_BUILD_TIMESTAMP="$(date -Ru${SOURCE_DATE_EPOCH:+d @$SOURCE_DATE_EPOCH})"
 
