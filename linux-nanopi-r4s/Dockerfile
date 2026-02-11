@@ -7,7 +7,7 @@ RUN tar xf /linux-${LINUX_VERSION%.0}.tar.xz --strip-components=1 -C .
 
 FROM prep AS do-oldconfig
 ARG LINUX_VERSION
-COPY core/linux-aarch64/config .config
+COPY config .config
 RUN make oldconfig
 
 

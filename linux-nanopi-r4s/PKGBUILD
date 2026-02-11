@@ -6,7 +6,7 @@
 buildarch=8
 
 pkgbase=linux-nanopi-r4s
-pkgver=6.18.9
+pkgver=6.18.10
 pkgrel=1
 pkgdesc='Linux'
 url='http://www.kernel.org/'
@@ -40,14 +40,14 @@ validpgpkeys=(
   ABAF11C65A2970B130ABE3C479BE3E4300411886  # Linus Torvalds
   647F28654894E3BD457199BE38DBBDC86092693E  # Greg Kroah-Hartman
 )
-sha256sums=('030115ff8fb4cb536d8449dc40ebc3e314e86ba1b316a6ae21091a11cc930578'
+sha256sums=('d6d377161741ada2fab28eed69143277634a2aeb5e3883e50c031588ede48ede'
             'SKIP'
             '714e6d38480c8cdb1515fda600769159b170eab95c21e7335d7f82c4836bef3e'
             '0003552840c0511b421842b1131b4c7d2acc4c4b0629a675d290c9b90f797418'
             'c7ca3b34ab83c3f8d42fa38145ded0270da09ce845d09218dcbf147e684a5406'
             '3390bf0ff3936d2fb53bba48092ce5a3d8b4b66fc8d11a150d5489bba343a392'
             '16622ee1820e7f0096e52bf23c75ec83e8932b5722c5e8716efb79dfac7a3a73'
-            '6fb6bebe067e0ec97ffd64cabb1ad48f825c90843d3484dc220faa9ccef7279a')
+            'ce508ef8b841bb471778a137c0a158cf93717d98b1b2ad0ffcd4e725f64cbb40')
 
 export KBUILD_BUILD_HOST=myon.info
 export KBUILD_BUILD_USER=$pkgbase
