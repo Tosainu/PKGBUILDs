@@ -26,6 +26,7 @@ jobs:
       - uses: docker/bake-action@v6.10.0
         with:
           targets: ${{ matrix.package }}
+          provenance: false # to avoid creating provenance.json
           set: |
             ${{ matrix.package }}.cache-from=type=registry,ref=ghcr.io/tosainu/pkgbuilds/caches/aarch64/${{ matrix.package }}:main
             ${{ matrix.package }}.cache-to=type=registry,ref=ghcr.io/tosainu/pkgbuilds/caches/aarch64/${{ matrix.package }}:main,mode=min
