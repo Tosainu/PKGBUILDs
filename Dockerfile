@@ -49,9 +49,9 @@ if [ -f /key ] && [ -n "$GPG_KEY_ID" ]; then
   export GNUPGHOME=/gpg-home
   gpg --import /key
   echo -e '5\ny\n' | gpg --command-fd 0 --no-tty --no-greeting --edit-key "$GPG_KEY_ID" trust
-  find -type f -exec gpg --output {}.sig --detach-sig {} \; -exec repo-add --sign "$REPO_NAME.db.tar.gz" {} +
+  find -type f -exec gpg --output {}.sig --detach-sig {} \; -exec repo-add --include-sigs --sign "$REPO_NAME.db.tar.zst" {} +
 else
-  find -type f -exec repo-add "$REPO_NAME.db.tar.gz" {} +
+  find -type f -exec repo-add "$REPO_NAME.db.tar.zst" {} +
 fi
 EOS
 
