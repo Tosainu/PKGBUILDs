@@ -60,7 +60,6 @@ jobs:
         id: bake
         with:
           targets: repo
-          push: ${{ github.ref == 'refs/heads/main' }}
           provenance: false # to avoid creating "multi-platform" image
           set: |
             repo.args.REPO_NAME=myon
@@ -69,6 +68,7 @@ jobs:
             repo.secrets=type=env,id=GPG_KEY_ID
             repo.tags=ghcr.io/tosainu/pkgbuilds/aarch64:main
             repo.output=type=local,dest=./repo
+            ${{ github.ref == 'refs/heads/main' && 'repo.output=type=registry' || '' }}
         env:
           GPG_KEY_FILE: ${{ secrets.GPG_KEY_FILE }}
           GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
