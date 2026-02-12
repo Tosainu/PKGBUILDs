@@ -28,8 +28,9 @@ jobs:
           targets: ${{ matrix.package }}
           provenance: false # to avoid creating provenance.json
           set: |
-            ${{ matrix.package }}.cache-from=type=registry,ref=ghcr.io/tosainu/pkgbuilds/caches/aarch64/${{ matrix.package }}:main
-            ${{ matrix.package }}.cache-to=type=registry,ref=ghcr.io/tosainu/pkgbuilds/caches/aarch64/${{ matrix.package }}:main,mode=min
+            *.args.PACKAGER="Tosainu <6215720+Tosainu@users.noreply.github.com>"
+            ${{ format('{0}.cache-from=type=registry,ref=ghcr.io/tosainu/pkgbuilds/caches/aarch64/{0}:main', matrix.package) }}
+            ${{ github.ref == 'refs/heads/main' && format('{0}.cache-to=type=registry,ref=ghcr.io/tosainu/pkgbuilds/caches/aarch64/{0}:main,mode=min', matrix.package) || '' }}
       - uses: actions/upload-artifact@v6.0.0
         with:
           name: pkg-${{ matrix.package }}
@@ -59,16 +60,29 @@ jobs:
         id: bake
         with:
           targets: repo
-          push: true
+          push: ${{ github.ref == 'refs/heads/main' }}
           provenance: false # to avoid creating "multi-platform" image
           set: |
             repo.args.REPO_NAME=myon
             repo.contexts.pkgs=cwd://pkgs
+            repo.secrets=type=env,id=GPG_KEY_FILE
+            repo.secrets=type=env,id=GPG_KEY_ID
             repo.tags=ghcr.io/tosainu/pkgbuilds/aarch64:main
+            repo.output=type=local,dest=./repo
+        env:
+          GPG_KEY_FILE: ${{ secrets.GPG_KEY_FILE }}
+          GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
+      - run: tar cf repo.tar repo
+      - uses: actions/upload-artifact@v6.0.0
+        with:
+          name: repo
+          compression-level: 0
+          path: repo.tar
 
   update-infra:
     runs-on: ubuntu-slim
     needs: repo
+    if: ${{ github.ref == 'refs/heads/main' }}
     steps:
       - uses: actions/create-github-app-token@v2.2.1
         id: app-token
