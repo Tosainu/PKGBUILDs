@@ -1,20 +1,18 @@
-FROM ghcr.io/tosainu/alarm-makepkg:latest AS builder
-USER root
-RUN <<EOS
-  pacman-key --init
-  pacman-key --populate archlinux
-  pacman-key --populate archlinuxarm
-  pacman-key --lsign-key 68B3537F39A313B3E574D06777193F152BDBE6A6 # Arch Linux ARM Build System <builder@archlinuxarm.org>
-  sed -i 's/^#\(DisableSandbox.*\)/\1/' /etc/pacman.conf
-  sed -i 's/^#\?\(MAKEFLAGS=\).*$/\1"-j6"/' /etc/makepkg.conf
-  sed -i '/^PKGEXT=/s/xz/zst/' /etc/makepkg.conf
-  sed -i -n '/^### United States/,/^$/ s/#\s*Server/Server/p' /etc/pacman.d/mirrorlist
-EOS
-RUN pacman -Syyu --noconfirm --noprogressbar
+FROM ghcr.io/tosainu/archlinux:latest AS builder
 RUN \
+  pacman-key --init && \
+  pacman-key --populate && \
+  sed -i 's/^#\(DisableSandbox.*\)/\1/' /etc/pacman.conf && \
+  sed -i 's/^DownloadUser/#&/' /etc/pacman.conf && \
+  sed -i 's/^#\?\(MAKEFLAGS=\).*$/\1"-j6"/' /etc/makepkg.conf && \
+  sed -i '/^PKGEXT=/s/xz/zst/' /etc/makepkg.conf && \
+  sed -i '/^## Worldwide/,/^$/{ s/^#\(Server\)/\1/ }' /etc/pacman.d/mirrorlist && \
+  pacman -Syyu --noconfirm --noprogressbar base-devel && \
+  useradd -m -U builder && \
+  echo 'builder ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers && \
   mkdir -p /work/{build,pkg,pkgbuild,src} && \
-  chown -R alarm:alarm /work
-USER alarm
+  chown -R builder:builder /work
+USER builder
 WORKDIR /work/pkgbuild
 
 

@@ -8,7 +8,6 @@ echo "version: $version"
 
 podman build \
   --platform=linux/arm64 \
-  --network=none \
   --pull=always \
   --stdin \
   "--build-arg=LINUX_VERSION=$version" \
