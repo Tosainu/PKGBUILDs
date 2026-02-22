@@ -1,0 +1,19 @@
+# Maintainer: Tosainu <tosainu.maple@gmail.com>
+
+pkgname=wilc-firmware
+_srctag=wilc_linux_16_2
+_srcname=firmware-${_srctag}
+pkgver=16.2
+pkgrel=1
+pkgdesc="Firmware binaries for ATWILC1000 & ATWILC3000 Wireless Devices"
+arch=(any)
+url="https://github.com/linux4wilc/firmware"
+license=(custom)
+source=("https://github.com/linux4wilc/firmware/archive/${_srctag}.tar.gz")
+sha256sums=('b0cbb58dd10a7b7a1d997cc8e2842aaaa56ba5c50939edfca2880f27be98f1ed')
+
+package() {
+  cd "${srcdir}/${_srcname}"
+  install -d -m0755 "${pkgdir}/usr/lib/firmware/mchp"
+  install -m0644 *.bin "${pkgdir}/usr/lib/firmware/mchp"
+}
