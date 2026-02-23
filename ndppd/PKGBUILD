@@ -1,8 +1,7 @@
 # Maintainer: Tosainu <tosainu.maple@gmail.com>
 
-pkgbase=ndppd
-pkgname="${pkgbase}-git"
-pkgver=0.2.6
+pkgname=ndppd
+pkgver=0.2.6.r9.g4f0301f
 pkgrel=1
 pkgdesc='NDP Proxy Daemon'
 arch=(
@@ -15,20 +14,19 @@ depends=()
 makedepends=(
   git
 )
-conflicts=("${pkgbase}")
-provides=("${pkgbase}")
 backup=('etc/ndppd.conf')
-source=("$pkgbase::git+https://github.com/DanielAdolfsson/ndppd.git")
+_commit=4f0301f94345c92b723392ed2d73f04f910e6c30
+source=(git+https://github.com/DanielAdolfsson/ndppd.git#commit=${_commit})
 sha256sums=('SKIP')
 
 pkgver() {
-  cd $pkgbase
+  cd $pkgname
 
   git describe --long --tags --abbrev=7 | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
 build() {
-  cd $pkgbase
+  cd $pkgname
 
   sed -i "s/^\\(#define NDPPD_VERSION \\).*$/\\1\"$pkgver\"/" src/ndppd.h
 
@@ -36,7 +34,7 @@ build() {
 }
 
 package() {
-  cd $pkgbase
+  cd $pkgname
 
   make PREFIX=/usr SBINDIR=/${pkgdir}/usr/bin DESTDIR=${pkgdir} install
   install -D -m 644 ndppd.service "${pkgdir}/usr/lib/systemd/system/ndppd.service"

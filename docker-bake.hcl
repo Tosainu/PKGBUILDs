@@ -23,10 +23,10 @@ target "linux-nanopi-r4s" {
   platforms = ["linux/arm64"]
 }
 
-target "ndppd-git" {
+target "ndppd" {
   inherits = ["_makepkg"]
   args = {
-    PKGBUILD_DIR = "ndppd-git"
+    PKGBUILD_DIR = "ndppd"
   }
   platforms = ["linux/arm64"]
 }
