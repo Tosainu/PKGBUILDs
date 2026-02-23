@@ -2,7 +2,7 @@
 
 pkgname=ndppd
 pkgver=0.2.6.r9.g4f0301f
-pkgrel=2
+pkgrel=3
 pkgdesc='NDP Proxy Daemon'
 arch=(
   aarch64
@@ -16,8 +16,10 @@ makedepends=(
 )
 backup=('etc/ndppd.conf')
 _commit=4f0301f94345c92b723392ed2d73f04f910e6c30
-source=(git+https://github.com/DanielAdolfsson/ndppd.git#commit=${_commit})
-sha256sums=('SKIP')
+source=(git+https://github.com/DanielAdolfsson/ndppd.git#commit=${_commit}
+        ndppd.service)
+sha256sums=('SKIP'
+            'f3bf0bee32149d8c773747aa767e0f4b513d0a819e90fe1a5aae64f5caa83c65')
 
 pkgver() {
   cd $pkgname
@@ -29,7 +31,6 @@ build() {
   cd $pkgname
 
   sed -i "s/^\\(#define NDPPD_VERSION \\).*$/\\1\"$pkgver\"/" src/ndppd.h
-  sed -i 's!/var/!/!g' ndppd.service
 
   make PREFIX=/usr all
 }
@@ -38,6 +39,6 @@ package() {
   cd $pkgname
 
   make PREFIX=/usr SBINDIR=/${pkgdir}/usr/bin DESTDIR=${pkgdir} install
-  install -D -m 644 ndppd.service "${pkgdir}/usr/lib/systemd/system/ndppd.service"
+  install -D -m 644 "${srcdir}/ndppd.service" "${pkgdir}/usr/lib/systemd/system/ndppd.service"
   install -D -m 644 ndppd.conf-dist "${pkgdir}/etc/ndppd.conf"
 }
