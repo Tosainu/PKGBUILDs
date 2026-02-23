@@ -2,7 +2,7 @@
 
 pkgname=ndppd
 pkgver=0.2.6.r9.g4f0301f
-pkgrel=1
+pkgrel=2
 pkgdesc='NDP Proxy Daemon'
 arch=(
   aarch64
@@ -29,6 +29,7 @@ build() {
   cd $pkgname
 
   sed -i "s/^\\(#define NDPPD_VERSION \\).*$/\\1\"$pkgver\"/" src/ndppd.h
+  sed -i 's!/var/!/!g' ndppd.service
 
   make PREFIX=/usr all
 }
