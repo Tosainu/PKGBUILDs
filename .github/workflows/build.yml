@@ -13,6 +13,7 @@ jobs:
       matrix:
         package:
           - linux-nanopi-r4s
+          - ndppd-git
     permissions:
       artifact-metadata: write
       packages: write

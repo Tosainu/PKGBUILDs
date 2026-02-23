@@ -23,6 +23,14 @@ target "linux-nanopi-r4s" {
   platforms = ["linux/arm64"]
 }
 
+target "ndppd-git" {
+  inherits = ["_makepkg"]
+  args = {
+    PKGBUILD_DIR = "ndppd-git"
+  }
+  platforms = ["linux/arm64"]
+}
+
 target "wilc-firmware" {
   inherits = ["_makepkg"]
   args = {
