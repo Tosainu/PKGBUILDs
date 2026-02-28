@@ -1,7 +1,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgbase=linux-nanopi-r4s
-pkgver=6.19.3
+pkgver=6.19.5
 pkgrel=1
 pkgdesc='Linux'
 url='http://www.kernel.org/'
@@ -39,14 +39,14 @@ validpgpkeys=(
   ABAF11C65A2970B130ABE3C479BE3E4300411886  # Linus Torvalds
   647F28654894E3BD457199BE38DBBDC86092693E  # Greg Kroah-Hartman
 )
-sha256sums=('0e474968adfcbee32916fd01a89d8ccfd1168d8d32569e76a5c664c793198ebe'
+sha256sums=('95ae05c8c709e353c0e8506c072efc5598d85b8b7b564a1ebac7ee8345042ffa'
             'SKIP'
             '714e6d38480c8cdb1515fda600769159b170eab95c21e7335d7f82c4836bef3e'
             '0003552840c0511b421842b1131b4c7d2acc4c4b0629a675d290c9b90f797418'
             'c7ca3b34ab83c3f8d42fa38145ded0270da09ce845d09218dcbf147e684a5406'
             '3390bf0ff3936d2fb53bba48092ce5a3d8b4b66fc8d11a150d5489bba343a392'
             '16622ee1820e7f0096e52bf23c75ec83e8932b5722c5e8716efb79dfac7a3a73'
-            'c33d7ce79dd104b078a617400f07b259e8d8cbdfe9b9248cbd246db96fe5970b')
+            '911625e67c489a781c3a5eb117abef2c728b9ea46b06175cf77ac19785f11860')
 
 export KBUILD_BUILD_HOST=myon.info
 export KBUILD_BUILD_USER=$pkgbase
