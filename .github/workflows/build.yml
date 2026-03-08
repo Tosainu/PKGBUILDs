@@ -32,7 +32,7 @@ jobs:
             *.args.PACKAGER="Tosainu <6215720+Tosainu@users.noreply.github.com>"
             ${{ format('{0}.cache-from=type=registry,ref=ghcr.io/tosainu/pkgbuilds/caches/{1}/{0}:main', matrix.package, github.job) }}
             ${{ github.ref == 'refs/heads/main' && format('{0}.cache-to=type=registry,ref=ghcr.io/tosainu/pkgbuilds/caches/{1}/{0}:main,mode=min', matrix.package, github.job) || '' }}
-      - uses: actions/upload-artifact@v6.0.0
+      - uses: actions/upload-artifact@v7.0.0
         with:
           name: ${{ github.job }}-${{ matrix.package }}
           compression-level: 0
@@ -88,7 +88,7 @@ jobs:
           GPG_KEY_FILE: ${{ secrets.GPG_KEY_FILE }}
           GPG_KEY_ID: ${{ secrets.GPG_KEY_ID }}
       - run: tar cf repo.tar repo
-      - uses: actions/upload-artifact@v6.0.0
+      - uses: actions/upload-artifact@v7.0.0
         with:
           name: repo
           compression-level: 0
