@@ -64,7 +64,7 @@ jobs:
     outputs:
       digest: ${{ fromJSON(steps.bake.outputs.metadata).repo['containerimage.digest'] }}
     steps:
-      - uses: actions/download-artifact@v8.0.0
+      - uses: actions/download-artifact@v8.0.1
         with:
           path: pkgs
           pattern: pkg-{aarch64,any}-*
