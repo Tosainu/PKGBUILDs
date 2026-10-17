@@ -103,7 +103,7 @@ jobs:
     needs: repo
     if: ${{ github.ref == 'refs/heads/main' }}
     steps:
-      - uses: actions/create-github-app-token@v3.2.0
+      - uses: actions/create-github-app-token@v3.3.0
         id: app-token
         with:
           client-id: ${{ secrets.APP_CLIENT_ID }}
